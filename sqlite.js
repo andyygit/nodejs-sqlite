@@ -38,9 +38,8 @@ class MyDatabase {
         type: 'REAL',
       },
     ];
-    let params = columnData.reduce((acc, currv) =>
-      `${acc.name} ${acc.type}`.concat(', ', `${currv.name} ${currv.type}`)
-    );
+    let params = columnData.map(item => `${item.name} ${item.type}`);
+    params = params.reduce((accum, curvalue) => accum.concat(', ', curvalue));
     this.db.serialize(() => {
       this.db.run(`CREATE TABLE ${tableName} (${params})`);
     });
