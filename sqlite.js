@@ -38,7 +38,7 @@ class MyDatabase {
         type: 'REAL',
       },
     ];
-    let params = columnData.map(item => `${item.name} ${item.type}`);
+    let params = columnData.map((item) => `${item.name} ${item.type}`);
     params = params.reduce((accum, curvalue) => accum.concat(', ', curvalue));
     this.db.serialize(() => {
       this.db.run(`CREATE TABLE ${tableName} (${params})`);
@@ -58,7 +58,7 @@ class MyDatabase {
     ];
     this.db.serialize(() => {
       let stmt = this.db.prepare(
-        `INSERT INTO ${table} (info, currDate, randomReal) VALUES ($info, (SELECT unixepoch()), $random)`
+        `INSERT INTO ${table} (info, currDate, randomReal) VALUES ($info, (SELECT unixepoch("now","localtime")), $random)`
       );
       values.forEach((el) => {
         stmt.run({
@@ -72,14 +72,19 @@ class MyDatabase {
 
   select() {
     this.db.serialize(() => {
-      this.db.all('SELECT * FROM lorem WHERE info LIKE $info', { $info: 'Lorem%' }, (err, rows) => {
-        if (err) {
-          console.error(err.message);
+      this.db.all(
+        'SELECT info, datetime(currDate, "unixepoch") as currDate, randomReal FROM lorem WHERE info LIKE $info',
+        { $info: 'Lorem%' },
+        (err, rows) => {
+          if (err) {
+            console.error(err.message);
+          }
+          // rows.forEach((row) => {
+          //   console.log(row);
+          // });
+          console.log(rows);
         }
-        rows.forEach((row) => {
-          console.log(row.info);
-        });
-      });
+      );
     });
   }
 
