@@ -1,6 +1,5 @@
 import express from 'express';
 import sqlite3 from 'sqlite3';
-// import { MyDatabase } from './sqlite.js';
 
 sqlite3.verbose();
 
