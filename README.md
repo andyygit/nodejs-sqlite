@@ -1,1 +1,1 @@
-# nodejs-sqlite
+run init first
