@@ -10,7 +10,7 @@ app.use(express.json());
 app.get('/posts', (req, res, next) => {
   console.log(`get reguested from ${req.url}`);
 
-  let db = new sqlite3.Database('test.db', (err) => {
+  let db = new sqlite3.Database('test.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return next({ status: 500, message: 'nu s-a putut conecta la db' });
     }
@@ -44,7 +44,7 @@ app.get('/posts/:id', (req, res, next) => {
 
   let id = parseInt(req.params.id, 10);
 
-  let db = new sqlite3.Database('test.db', (err) => {
+  let db = new sqlite3.Database('test.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return next({ status: 500, message: 'nu s-a putut conecta la db' });
     }
@@ -76,7 +76,7 @@ app.get('/posts/:id', (req, res, next) => {
 app.get('/describe/:tablename', (req, res, next) => {
   console.log(`get reguested from ${req.url}`);
 
-  let db = new sqlite3.Database('test.db', (err) => {
+  let db = new sqlite3.Database('test.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return next({ status: 500, message: 'nu s-a putut conecta la db' });
     }
