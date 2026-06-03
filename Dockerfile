@@ -9,5 +9,5 @@ COPY src .
 RUN npm install
 RUN npm run init
 CMD ["node", "index.js"]
-# need old index.js file from https://github.com/andyygit/nodejs-sqlite/tree/7f405dd924df6e29fda1897ba0391563d7398774
-# how to expose logs?
+
+# expose logs?
